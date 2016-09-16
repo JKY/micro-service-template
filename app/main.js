@@ -1,5 +1,5 @@
 const settings = require('../setting').settings;
-const AUTH = reqiure('../../lib/postio/auth').METHOD;
+const AUTH = require('../lib/postio/auth').METHOD;
 
 /** service interface **/
 module.exports = {
@@ -9,7 +9,9 @@ module.exports = {
 		 * @data: json object
 		 * @callback: callback function
 		 **/
-		update: function(data,callback){
+		update: function(appid,data,callback){
+			console.log('----- conf update received ------');
+			console.log(data);
 			// TODO 
 			/** 
 			 * callback
@@ -31,8 +33,24 @@ module.exports = {
 			 * process
 			 */
 			process: function(o,callback){
+				console.log('/form/data')
+				console.log(o);
 				//TODO
-				callback(err,null,null);
+				callback(null,null,null);
+			}
+		},
+
+		{
+			path: '/form/foo',
+			authrizer: AUTH.base,
+			/** 
+			 * process
+			 */
+			process: function(o,callback){
+				console.log('/form/foo')
+				console.log(o);
+				//TODO
+				callback(null,null,null);
 			}
 		}
 	]

@@ -3,11 +3,11 @@
  */
 var express = require('express'),
 	settings = require('./setting').settings,
-	conf = require('./lib/postio/conf').conf,
 	data = require('./lib/postio/data').data,
 	out = require('./lib/postio/util').out,
 	crypto = require('./lib/postio/crypto'),
 	parse_form = require('./lib/postio/util').parse_form,
+	auth = require('./lib/postio/auth'),
 	color = require('colors');
 
 
@@ -71,9 +71,10 @@ svr.handler.forEach(function(handler){
         req.on('end', function () {
         	try{
         		var o = JSON.parse(body);
+        		
         	}catch(e){
         		out.err(resp,500,{
-        			'err':e
+        			'err':e.toString()
         		});
         		return;
         	};
@@ -99,6 +100,6 @@ svr.handler.forEach(function(handler){
 
 if (!module.parent) {
   app.listen(settings.port);
-  sys.log((settings.name + ' runnng port:' + settings.port).green);
+  console.log((settings.name + ' runnng port:' + settings.port).green);
 }
 

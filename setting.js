@@ -19,8 +19,8 @@ module.exports.settings =  {
 
 	/* config settings */
 	conf: {
-		uir: '/conf/update',
-		key: '******'
+		uri: '/conf/update',
+		key: '123456'
 	},
 
 	/* data notification config */
