@@ -1,4 +1,4 @@
-module.exports.settings =  {
+module.exports =  {
 	name: 'service template',
 	debug:false,
 	/* change this port to your services */

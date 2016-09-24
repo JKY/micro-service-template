@@ -28,76 +28,7 @@ app.use(function(req,resp,next){
 	});
 });
 
-
-var svr = require('./app/main');
-/**
- * update service configuration
- */
-app.post(settings.conf.uri,function(req,resp){
-	var body = '';
-    req.on('data', function(data) {
-        body += data;
-        if (body.length > 1e6)
-            req.connection.destroy();
-    });
-    req.on('end', function() {
-        var data = crypto.aes.decode(body, settings.conf.key);
-        try {
-            var o = JSON.parse(data);
-            svr.conf.update(o['appid'],o['conf'],function(err,result){
-				out.json(resp,200,{
-					'err':err,
-					'result': result
-				});
-			});
-        } catch (error) {
-        	out.err(resp,500,{
-        			'err':error
-        	});
-        }
-    });
-});
-
-
-/** service handlers **/
-svr.handler.forEach(function(handler){
-	app.post(handler['path'],function(req,resp){
-		var body = '';
-        req.on('data', function (data) {
-            body += data;
-            if (body.length > 1e6)
-                req.connection.destroy();
-        });
-        req.on('end', function () {
-        	try{
-        		var o = JSON.parse(body);
-        		
-        	}catch(e){
-        		out.err(resp,500,{
-        			'err':e.toString()
-        		});
-        		return;
-        	};
-        	handler['process'](o,function(err,result,sync_data){
-				out.json(resp,200,{
-					'err': err,
-					'result': result
-				});
-				if(sync_data){
-					data.sync(o['appid'],
-							  sync_data['collection_name'],
-							  settings.data.sync['key'],
-							  sync_data['data'],function(err,result){
-							  		console.log('data sync with err=' + err);
-							  		console.log(result);
-					});
-				}
-			});
-        });
-	});
-});
-
-
+require('./app/main').main(app);
 if (!module.parent) {
   app.listen(settings.port);
   console.log((settings.name + ' runnng port:' + settings.port).green);
