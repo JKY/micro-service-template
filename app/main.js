@@ -35,7 +35,7 @@ var service = exports.service = {
 			/** 
 			 * process
 			 */
-			process: function(o,callback){
+			process: function(req,o,callback){
 				console.log('/form/data')
 				console.log(o);
 				//TODO
@@ -86,15 +86,7 @@ var main = exports.main = function (app) {
 	                req.connection.destroy();
 	        });
 	        req.on('end', function () {
-	        	try{
-	        		var o = JSON.parse(body);
-	        	}catch(e){
-	        		out.err(resp,500,{
-	        			'err':e.toString()
-	        		});
-	        		return;
-	        	};
-	        	handler['process'](o,function(err,result,sync){
+	        	handler['process'](req,body,function(err,result,sync){
 					out.json(resp,200,{
 						'err': err,
 						'result': result
