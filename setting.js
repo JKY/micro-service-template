@@ -6,7 +6,7 @@ module.exports =  {
 	mongo : {
 		host:"localhost",
 		port: 27017,
-		dbname: "wechat_api",
+		dbname: "foo",
 		serveropt: {
 			'auto_reconnect':true,
 			 poolSize:5
@@ -20,13 +20,13 @@ module.exports =  {
 	/* config settings */
 	conf: {
 		uri: '/conf/update',
-		key: '123456'
+		key: '******'
 	},
 
 	/* data notification config */
 	data: {
 		sync: {
-			uri: 'http://tap.postio.me',
+			uri: 'http://app.postio.me',
 			key: '*********'
 		}
 	}

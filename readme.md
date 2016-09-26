@@ -40,7 +40,7 @@ test:
 
 
 ### 数据同步
-endpoint:  { settings.sync.notify.uri } + '/data/' + {appid} + '/' + {collection_name} + '/' + {hash}
+endpoint:  { settings.sync.notify.uri } + '/webhook/' + {package} + '/' + {name} + '/' + {appid} +'/' + {hash}
 
 method: POST
 
@@ -55,7 +55,7 @@ param:
 
 test:
 
-	curl -H "Content-Type: application/json" -X POST -d '{"appid":"foo"}' http://localhost:3006/form/foo | python -m json.tool
+	curl -H "Content-Type: application/json" -X POST -d '{"appid":"foo"}' http://localhost:3006/webhook/store/save/123456/hash | python -m json.tool
 
 
 

@@ -93,7 +93,8 @@ var main = exports.main = function (app) {
 					});
 					if(sync){
 						data.sync(o['appid'],
-								  sync['collection_name'],
+								  sync['package'],
+								  sync['name'],
 								  settings.data.sync['key'],
 								  sync['data'],function(err,result){
 								  		console.log('data sync with err=' + err);
